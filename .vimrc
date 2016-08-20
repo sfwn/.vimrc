@@ -8,4 +8,4 @@ call plug#end()
 
 " === colortheme ===
 colorscheme onedark
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1 " add tmux Tc support
+set termguicolors
