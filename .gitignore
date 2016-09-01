@@ -1,6 +1,12 @@
-*
+/*
+
+# whitelist .config/nvim/init.vim
+!.config/
+.config/*
+!.config/nvim/
+.config/nvim/*
+!.config/nvim/init.vim
+
 !.gitignore
 !.vimrc
 !.tmux.conf
-!dirtyFile
-
