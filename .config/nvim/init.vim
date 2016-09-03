@@ -6,17 +6,20 @@ Plug 'tpope/vim-fugitive'
 Plug 'ianva/vim-youdao-translater'
 Plug 'fatih/vim-nginx'
 " Heavy plugins bellow
-Plug 'Valloric/YouCompleteMe'
+" Lazily loaded YCM
+Plug 'Valloric/YouCompleteMe', { 'on': [] }
+command! YcmCompleter call plug#load('YouCompleteMe') | call youcompleteme#Enable() | YcmCompleter
 call plug#end()
 "" ==== plug end ====
 
 " key map
 "" ==== YouDao dict ====
-vnoremap <silent> <C-T> :<C-u>Ydv<CR>
-nnoremap <silent> <C-T> :<C-u>Ydc<CR>
-noremap <leader>yd :<C-u>Yde<CR>
+vnoremap <silent> <C-Y> :<C-u>Ydv<CR>
+nnoremap <silent> <C-Y> :<C-u>Ydc<CR>
+nnoremap <leader>yd :<C-u>Yde<CR>
 "" ==== YouDao dict ====
 let mapleader=';'
+nnoremap <leader>f :YcmCompleter<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
 nnoremap <leader>s :so %<CR>
