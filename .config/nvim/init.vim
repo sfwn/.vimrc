@@ -3,6 +3,7 @@ call plug#begin('$HOME/.config/nvim/plugged')
 Plug 'sheerun/vim-polyglot'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
 Plug 'fatih/vim-nginx'
 Plug 'uguu-org/vim-matrix-screensaver'
 Plug 'TimothyYe/vim-tips'
@@ -16,8 +17,14 @@ Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'Shougo/unite.vim'
 " faster nearly 110~150ms
 Plug 'ianva/vim-youdao-translater', { 'on': ['Ydv', 'Ydc', 'Yde'] }
+Plug 'itchyny/lightline.vim'
+Plug 'cocopon/lightline-hybrid.vim'
 call plug#end()
 "" ==== plug end ====
+
+" lightline
+let g:lightline = { 'colorscheme': 'hybrid' }
+let g:lightline_hybrid_style='plain'
 
 " key map
 "" ==== YouDao dict ====
@@ -26,6 +33,12 @@ nnoremap <silent> <C-Y> :<C-u>Ydc<CR>
 nnoremap <leader>yd :<C-u>Yde<CR>
 "" ==== YouDao dict ====
 let mapleader=';'
+" switch highlight search 
+nnoremap <silent><space> :call Hlsearch()<CR>
+function! Hlsearch()
+	let &hls = &hls > 0 ? 0 : 1
+endfunction
+
 nnoremap <F3> :YcmCompleter<CR>
 nnoremap <silent><F4> :NERDTreeToggle<CR>
 nnoremap <silent><F5> :TagbarToggle<CR>
@@ -59,9 +72,10 @@ set so=10
 "set cmdheight=1
 set clipboard+=unnamedplus
 set foldcolumn=1
+set tabstop=4
 set numberwidth=4
 set ignorecase
-set laststatus=1
+set laststatus=2
 set background=dark
 set termguicolors
 set background=dark
