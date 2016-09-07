@@ -3,7 +3,7 @@ call plug#begin('$HOME/.config/nvim/plugged')
 Plug 'sheerun/vim-polyglot'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
-Plug 'junegunn/gv.vim'
+Plug 'junegunn/gv.vim', { 'on': 'GV' }
 Plug 'fatih/vim-nginx'
 Plug 'uguu-org/vim-matrix-screensaver'
 Plug 'TimothyYe/vim-tips'
@@ -19,12 +19,19 @@ Plug 'Shougo/unite.vim'
 Plug 'ianva/vim-youdao-translater', { 'on': ['Ydv', 'Ydc', 'Yde'] }
 Plug 'itchyny/lightline.vim'
 Plug 'cocopon/lightline-hybrid.vim'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'justinmk/vim-dirvish'
 call plug#end()
 "" ==== plug end ====
 
 " lightline
 let g:lightline = { 'colorscheme': 'hybrid' }
 let g:lightline_hybrid_style='plain'
+
+let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 
 " key map
 "" ==== YouDao dict ====
@@ -42,6 +49,7 @@ endfunction
 nnoremap <F3> :YcmCompleter<CR>
 nnoremap <silent><F4> :NERDTreeToggle<CR>
 nnoremap <silent><F5> :TagbarToggle<CR>
+nnoremap <silent><F9> :Startify<CR>
 nnoremap <leader>a :AirlineToggle<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
@@ -56,8 +64,11 @@ nnoremap <C-N> :tabnew<CR>
 nnoremap <Right> gt
 nnoremap <Left> gT
 " Unite
-nnoremap <leader>f :<C-u>Unite -start-insert file<CR>
-nnoremap <leader>r :<C-u>Unite -start-insert file_rec<CR>
+"nnoremap <leader>f :<C-u>Unite -start-insert file<CR>
+nnoremap <leader>f :FZF<CR>
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+"nnoremap <leader>r :<C-u>Unite -start-insert file_rec<CR>
+nnoremap <leader>r :<C-u>Unite -start-insert file_rec/async:!<CR>
 
 syntax enable
 filetype plugin on
@@ -70,6 +81,10 @@ endif
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif   
 set so=10
 "set cmdheight=1
+set cursorline
+set cursorcolumn
+set nu
+set noacd
 set clipboard+=unnamedplus
 set foldcolumn=1
 set tabstop=4
