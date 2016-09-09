@@ -85,7 +85,11 @@ endif
 " system config
 " open file with cursor stay at last closed location
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif   
+" set scrolloff
 set so=10
+" set sidescrolloff
+set nowrap
+set siso=30
 "set cmdheight=1
 set cursorline
 set cursorcolumn
@@ -93,10 +97,12 @@ set nu
 set noacd
 set clipboard+=unnamedplus
 set foldcolumn=1
+" set tabstop
 set tabstop=8
 set softtabstop=4
 set shiftwidth=4
 set noexpandtab
+
 set numberwidth=4
 set ignorecase
 set laststatus=2
