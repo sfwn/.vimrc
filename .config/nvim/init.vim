@@ -24,6 +24,8 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'justinmk/vim-dirvish'
+Plug 'Shougo/vimshell.vim', { 'on': ['VimShellPop', 'VimShell'] }
+Plug 'sjl/gundo.vim'
 call plug#end()
 "" ==== plug end ====
 
@@ -51,9 +53,11 @@ function! StatusLine()
     let &laststatus = &laststatus == 2 ? 0 : 2
 endfunction
 
+nnoremap <silent><C-s> :VimShellPop<CR>
 nnoremap <F3> :YcmCompleter<CR>
 nnoremap <silent><F4> :NERDTreeToggle<CR>
 nnoremap <silent><F5> :TagbarToggle<CR>
+nnoremap <silent><F8> :GundoToggle<CR>
 nnoremap <silent><F9> :Startify<CR>
 nnoremap <silent><leader>o :only<CR>
 nnoremap <leader>a :AirlineToggle<CR>
