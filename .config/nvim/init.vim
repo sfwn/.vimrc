@@ -45,11 +45,17 @@ nnoremap <silent><space> :call Hlsearch()<CR>
 function! Hlsearch()
 	let &hls = &hls > 0 ? 0 : 1
 endfunction
+" switch statusline'display
+nnoremap <silent><F10> :call StatusLine()<CR>
+function! StatusLine()
+    let &laststatus = &laststatus == 2 ? 0 : 2
+endfunction
 
 nnoremap <F3> :YcmCompleter<CR>
 nnoremap <silent><F4> :NERDTreeToggle<CR>
 nnoremap <silent><F5> :TagbarToggle<CR>
 nnoremap <silent><F9> :Startify<CR>
+nnoremap <silent><leader>o :only<CR>
 nnoremap <leader>a :AirlineToggle<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
@@ -87,7 +93,10 @@ set nu
 set noacd
 set clipboard+=unnamedplus
 set foldcolumn=1
-set tabstop=4
+set tabstop=8
+set softtabstop=4
+set shiftwidth=4
+set noexpandtab
 set numberwidth=4
 set ignorecase
 set laststatus=2
