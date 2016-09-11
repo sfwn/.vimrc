@@ -78,8 +78,9 @@ nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <silent><up> ddkP
 nnoremap <silent><down> ddp
 nnoremap <silent>- dd
-"nnoremap k kzz
-"nnoremap j jzz
+" json format
+vnoremap =j :%!python -m json.tool<CR>
+nnoremap =j :%!python -m json.tool<CR>
 " tab
 nnoremap <C-N> :tabnew<CR>
 nnoremap <Right> gt
@@ -119,6 +120,7 @@ set noacd
 set clipboard+=unnamedplus
 set foldcolumn=0
 " set tabstop
+set autoindent
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -132,7 +134,7 @@ set background=dark
 set termguicolors
 set background=dark
 colorscheme onedark
-let g:one_allow_italics=1
+"let g:one_allow_italics=1
 "colorscheme deep-space
 "colorscheme dracula
 "let g:dracula_italic=1
