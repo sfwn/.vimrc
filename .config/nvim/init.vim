@@ -26,12 +26,19 @@ Plug 'junegunn/fzf.vim'
 Plug 'justinmk/vim-dirvish'
 Plug 'Shougo/vimshell.vim', { 'on': ['VimShellPop', 'VimShell'] }
 Plug 'sjl/gundo.vim'
-Plug 'crusoexia/vim-dracula'
+" colorscheme
 Plug 'joshdick/onedark.vim'
 Plug 'rakr/vim-one'
+Plug 'crusoexia/vim-dracula'
 Plug 'tyrannicaltoucan/vim-deep-space'
+Plug 'frankier/neovim-colors-solarized-truecolor-only'
+Plug 'romainl/flattened'
 call plug#end()
 "" ==== plug end ====
+
+" NERDTree
+let g:NERDTreeShowBookmarks = 1
+let g:NERDTreeAutoCenter = 1
 
 " lightline
 let g:lightline = { 'colorscheme': 'hybrid' }
@@ -130,14 +137,14 @@ set noexpandtab
 set numberwidth=4
 set ignorecase
 set laststatus=2
-set background=dark
 set termguicolors
 set background=dark
-colorscheme onedark
-"let g:one_allow_italics=1
+"colorscheme onedark
+"colorscheme solarized
+"colorscheme flattened_dark
+colorscheme lucario
 "colorscheme deep-space
 "colorscheme dracula
-"let g:dracula_italic=1
 
 " highlight setting
 hi Pmenu ctermfg=black ctermbg=white
