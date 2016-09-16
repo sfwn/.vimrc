@@ -9,6 +9,7 @@ Plug 'uguu-org/vim-matrix-screensaver'
 Plug 'TimothyYe/vim-tips'
 Plug 'mhinz/vim-startify'
 Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-surround'
 " Lazily loaded YCM (faster about 200ms)
 Plug 'Valloric/YouCompleteMe', { 'on': [] }
 command! YcmCompleter call plug#load('YouCompleteMe') | call youcompleteme#Enable() | YcmCompleter
@@ -33,6 +34,9 @@ Plug 'crusoexia/vim-dracula'
 Plug 'tyrannicaltoucan/vim-deep-space'
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
 Plug 'romainl/flattened'
+Plug 'ashfinal/vim-colors-paper'
+" mark-signature
+Plug 'kshenoy/vim-signature'
 call plug#end()
 "" ==== plug end ====
 
@@ -54,17 +58,13 @@ nnoremap <leader>yd :<C-u>Yde<CR>
 "" ==== YouDao dict ====
 let mapleader=';'
 " switch highlight search 
-nnoremap <silent><space> :call Hlsearch()<CR>
-function! Hlsearch()
-	" both ok
-	"let &hls = &hls > 0 ? 0 : 1
-	set hls!
-endfunction
+nnoremap <silent><CR> :set hls!<CR>
 " switch statusline'display
 nnoremap <silent><F10> :call StatusLine()<CR>
 function! StatusLine()
     let &laststatus = &laststatus == 2 ? 0 : 2
 endfunction
+nnoremap <silent><space> :set list!<CR>
 
 nnoremap <silent><C-s> :VimShellPop<CR>
 nnoremap <F3> :YcmCompleter<CR>
@@ -85,6 +85,7 @@ nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <silent><up> ddkP
 nnoremap <silent><down> ddp
 nnoremap <silent>- dd
+nnoremap <silent>J :join!<CR>
 " json format
 vnoremap =j :%!python -m json.tool<CR>
 nnoremap =j :%!python -m json.tool<CR>
@@ -106,6 +107,13 @@ if &filetype==""
 endif
 
 " system config
+set title
+set ttyfast
+set lazyredraw
+set mousehide
+" Use these symbols for invisible chars
+set listchars=tab:¦\ ,eol:¬,trail:⋅,extends:»,precedes:«
+
 " open file with cursor stay at last closed location
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif   
 " set scrolloff
@@ -138,11 +146,12 @@ set numberwidth=4
 set ignorecase
 set laststatus=2
 set termguicolors
-set background=dark
+"set background=dark
 "colorscheme onedark
 "colorscheme solarized
-"colorscheme flattened_dark
-colorscheme lucario
+colorscheme flattened_dark
+"colorscheme paper
+"colorscheme lucario
 "colorscheme deep-space
 "colorscheme dracula
 
