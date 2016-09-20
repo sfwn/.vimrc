@@ -14,6 +14,7 @@ Plug 'tpope/vim-surround'
 Plug 'Valloric/YouCompleteMe', { 'on': [] }
 command! YcmCompleter call plug#load('YouCompleteMe') | call youcompleteme#Enable() | YcmCompleter
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'Shougo/unite.vim'
 " faster nearly 110~150ms
@@ -37,12 +38,17 @@ Plug 'romainl/flattened'
 Plug 'ashfinal/vim-colors-paper'
 " mark-signature
 Plug 'kshenoy/vim-signature'
+" markdown
+Plug 'shime/vim-livedown'
 call plug#end()
 "" ==== plug end ====
 
 " NERDTree
 let g:NERDTreeShowBookmarks = 1
 let g:NERDTreeAutoCenter = 1
+let g:NERDTreeHighlightCursorline = 1
+"let g:NERDTreeMinimalUI = 1
+let g:NERDTreeWinSize = 45
 
 " lightline
 let g:lightline = { 'colorscheme': 'hybrid' }
@@ -69,7 +75,19 @@ nnoremap <silent><space> :set list!<CR>
 nnoremap <silent><C-s> :VimShellPop<CR>
 nnoremap <F3> :YcmCompleter<CR>
 nnoremap <silent><F4> :NERDTreeToggle<CR>
+nnoremap <silent><leader>n :NERDTreeFind<CR>
 nnoremap <silent><F5> :TagbarToggle<CR>
+
+nnoremap <silent><F6> :LivedownToggle<CR>
+" should markdown preview get shown automatically upon opening markdown buffer
+let g:livedown_autorun = 0
+" should the browser window pop-up upon previewing
+let g:livedown_open = 1
+" the port on which Livedown server will run
+let g:livedown_port = 1337
+" the system command to launch a browser (ex. on OSX)
+" let g:livedown_browser = "open /Applications/Firefox.app"
+
 nnoremap <silent><F8> :GundoToggle<CR>
 nnoremap <silent><F9> :Startify<CR>
 nnoremap <silent><leader>o :only<CR>
@@ -86,6 +104,8 @@ nnoremap <silent><up> ddkP
 nnoremap <silent><down> ddp
 nnoremap <silent>- dd
 nnoremap <silent>J :join!<CR>
+nnoremap <leader>m :Man 
+nnoremap <leader>he :vert h 
 " json format
 vnoremap =j :%!python -m json.tool<CR>
 nnoremap =j :%!python -m json.tool<CR>
