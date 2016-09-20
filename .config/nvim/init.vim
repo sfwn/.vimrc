@@ -91,6 +91,7 @@ nnoremap <silent><leader>o :only<CR>
 nnoremap <leader>a :AirlineToggle<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q!<CR>
+nnoremap <leader>Q :qa!<CR>
 nnoremap <leader>e :e 
 nnoremap <leader>s :so %<CR>
 nnoremap <leader>v :echo &
