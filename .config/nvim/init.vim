@@ -93,8 +93,7 @@ nnoremap <silent><F9> :Startify<CR>
 nnoremap <silent><leader>o :only<CR>
 nnoremap <leader>a :AirlineToggle<CR>
 nnoremap <leader>w :w<CR>
-nnoremap <leader>q :q<CR>
-nnoremap <leader>Q :q!<CR>
+nnoremap <leader>q :q!<CR>
 nnoremap <leader>e :e 
 nnoremap <leader>s :so %<CR>
 nnoremap <leader>v :echo &
@@ -166,7 +165,7 @@ set noexpandtab
 
 set numberwidth=4
 set ignorecase
-set laststatus=2
+set laststatus=1
 set termguicolors
 "set background=dark
 "colorscheme onedark
