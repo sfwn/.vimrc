@@ -127,6 +127,8 @@ if &filetype==""
 endif
 
 " system config
+set binary
+set noeol
 set title
 set ttyfast
 set lazyredraw
