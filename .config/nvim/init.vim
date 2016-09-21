@@ -10,9 +10,6 @@ Plug 'TimothyYe/vim-tips'
 Plug 'mhinz/vim-startify'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-surround'
-" Lazily loaded YCM (faster about 200ms)
-Plug 'Valloric/YouCompleteMe', { 'on': [] }
-command! YcmCompleter call plug#load('YouCompleteMe') | call youcompleteme#Enable() | YcmCompleter
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'Shougo/unite.vim'
@@ -37,8 +34,17 @@ Plug 'ashfinal/vim-colors-paper'
 Plug 'kshenoy/vim-signature'
 " markdown
 Plug 'shime/vim-livedown'
+" smart input method 输入法
+Plug 'ybian/smartim'
+" TOC for markdown
+Plug 'mzlogin/vim-markdown-toc', { 'on': ['GenTocGFM', 'GenTocRedcarpet'] }
+" deoplete
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 call plug#end()
 "" ==== plug end ====
+
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
 
 " NERDTree
 let g:NERDTreeShowBookmarks = 1
@@ -54,6 +60,10 @@ let g:lightline_hybrid_style='plain'
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 
 " key map
+" use tab to forward cycle
+inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" use tab to backward cycle
+inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 "" ==== YouDao dict ====
 vnoremap <silent> <C-Y> :<C-u>Ydv<CR>
 nnoremap <silent> <C-Y> :<C-u>Ydc<CR>
@@ -68,9 +78,7 @@ function! StatusLine()
     let &laststatus = &laststatus == 2 ? 0 : 2
 endfunction
 nnoremap <silent><space> :set list!<CR>
-
 nnoremap <silent><C-s> :VimShellPop<CR>
-nnoremap <F3> :YcmCompleter<CR>
 nnoremap <silent><F4> :NERDTreeToggle<CR>
 nnoremap <silent><leader>n :NERDTreeFind<CR>
 nnoremap <silent><F5> :TagbarToggle<CR>
@@ -165,10 +173,9 @@ set numberwidth=4
 set ignorecase
 set laststatus=1
 set termguicolors
-"set background=dark
+set background=dark
 "colorscheme onedark
-"colorscheme solarized
-colorscheme flattened_dark
+colorscheme flattened_dark " solarized
 "colorscheme paper
 "colorscheme lucario
 "colorscheme deep-space
