@@ -39,18 +39,15 @@ Plug 'ybian/smartim'
 " TOC for markdown
 Plug 'mzlogin/vim-markdown-toc', { 'on': ['GenTocGFM', 'GenTocRedcarpet'] }
 " deoplete
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
+command! Deoplete call plug#load('deoplete.nvim') | call deoplete#enable()
 call plug#end()
 "" ==== plug end ====
-
-" Use deoplete.
-let g:deoplete#enable_at_startup = 1
 
 " NERDTree
 let g:NERDTreeShowBookmarks = 1
 let g:NERDTreeAutoCenter = 1
 let g:NERDTreeHighlightCursorline = 1
-"let g:NERDTreeMinimalUI = 1
 let g:NERDTreeWinSize = 45
 
 " lightline
@@ -60,6 +57,7 @@ let g:lightline_hybrid_style='plain'
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 
 " key map
+nnoremap <silent><F3> :Deoplete<CR>
 " use tab to forward cycle
 inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 " use tab to backward cycle
