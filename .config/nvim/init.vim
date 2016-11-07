@@ -44,6 +44,9 @@ command! Deoplete call plug#load('deoplete.nvim') | call deoplete#enable()
 call plug#end()
 "" ==== plug end ====
 
+" tagbar
+let g:tagbar_autofocus = 1
+
 " NERDTree
 let g:NERDTreeShowBookmarks = 1
 let g:NERDTreeAutoCenter = 1
@@ -130,6 +133,7 @@ if &filetype==""
 endif
 
 " system config
+set ruler " show current line info in right bottom
 set binary
 set noeol
 set title
@@ -166,14 +170,15 @@ set softtabstop=4
 set shiftwidth=4
 set noexpandtab
 
-
 set numberwidth=4
 set ignorecase
 set laststatus=1
 set termguicolors
 set background=dark
 "colorscheme onedark
-colorscheme flattened_dark " solarized
+colorscheme one
+"colorscheme flattened_dark " solarized
+"colorscheme flattened_light
 "colorscheme paper
 "colorscheme lucario
 "colorscheme deep-space
@@ -186,11 +191,11 @@ hi Search ctermfg=white ctermbg=red
 hi WildMenu ctermfg=white ctermbg=brown
 
 " highlight linenumber
-hi clear CursorLine
-augroup CLClear
-    autocmd! ColorScheme * hi clear CursorLine
-augroup END
-hi CursorLineNR cterm=bold
-augroup CLNRSet
-    autocmd! ColorScheme * hi CursorLineNR cterm=bold
-augroup END
+"""hi clear CursorLine
+"""augroup CLClear
+"""    autocmd! ColorScheme * hi clear CursorLine
+"""augroup END
+"""hi CursorLineNR cterm=bold
+"""augroup CLNRSet
+"""    autocmd! ColorScheme * hi CursorLineNR cterm=bold
+"""augroup END
