@@ -172,16 +172,16 @@ set noexpandtab
 
 set numberwidth=4
 set ignorecase
-set laststatus=1
+set laststatus=2
 set termguicolors
 set background=dark
 "colorscheme onedark
-colorscheme one
+"colorscheme one
 "colorscheme flattened_dark " solarized
 "colorscheme flattened_light
 "colorscheme paper
 "colorscheme lucario
-"colorscheme deep-space
+colorscheme deep-space
 "colorscheme dracula
 
 " highlight setting
