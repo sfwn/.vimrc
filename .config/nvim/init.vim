@@ -3,6 +3,9 @@ call plug#begin('$HOME/.config/nvim/plugged')
 " golang
 Plug 'fatih/vim-go'
 Plug 'kien/ctrlp.vim'
+Plug 'jstemmer/gotags'
+
+Plug 'ryanoasis/vim-devicons'
 
 Plug 'sheerun/vim-polyglot'
 Plug 'airblade/vim-gitgutter'
@@ -35,6 +38,8 @@ Plug 'tyrannicaltoucan/vim-deep-space'
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
 Plug 'romainl/flattened'
 Plug 'ashfinal/vim-colors-paper'
+Plug 'altercation/vim-colors-solarized'
+Plug 'nanotech/jellybeans.vim'
 " mark-signature
 Plug 'kshenoy/vim-signature'
 " markdown
@@ -68,9 +73,18 @@ let g:lightline = {
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
+      \   'gitbranch': 'fugitive#head',
+      \   'filetype': 'MyFiletype',
+      \   'fileformat': 'MyFileformat',
       \ },
       \ }
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
 
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 
@@ -87,7 +101,7 @@ nnoremap <silent> <C-Y> :<C-u>Ydc<CR>
 nnoremap <leader>yd :<C-u>Yde<CR>
 "" ==== YouDao dict ====
 " switch highlight search 
-nnoremap <silent><CR> :set hls!<CR>
+"nnoremap <silent><CR> :set hls!<CR>
 " switch statusline'display
 nnoremap <silent><F10> :call StatusLine()<CR>
 function! StatusLine()
@@ -176,8 +190,8 @@ set so=10
 set nowrap
 "set siso=30
 set cmdheight=1
-set cursorline
-"set cursorcolumn
+"set cursorline
+set cursorcolumn
 set nu
 set noacd
 "set clipboard+=unnamedplus
@@ -201,7 +215,18 @@ set background=dark
 "colorscheme paper
 "colorscheme lucario
 "colorscheme deep-space
-colorscheme dracula
+"colorscheme dracula
+"colorscheme solarized
+"let g:solarized_termcolors=256
+colorscheme jellybeans
+let g:jellybeans_overrides = {
+\    'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
+\}
+let g:jellybeans_use_term_italics = 1
+let g:jellybeans_overrides = {
+\    'background': { 'guibg': 'none' },
+\}
+
 
 " highlight setting
 hi Pmenu ctermfg=black ctermbg=white
@@ -234,3 +259,31 @@ inoremap <expr> <C-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Es
 " open user completion menu closing previous if open and opening new menu without changing the text
 inoremap <expr> <S-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
             \ '<C-x><C-u><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
+
+let g:tagbar_type_go = {
+	\ 'ctagstype' : 'go',
+	\ 'kinds'     : [
+		\ 'p:package',
+		\ 'i:imports:1',
+		\ 'c:constants',
+		\ 'v:variables',
+		\ 't:types',
+		\ 'n:interfaces',
+		\ 'w:fields',
+		\ 'e:embedded',
+		\ 'm:methods',
+		\ 'r:constructor',
+		\ 'f:functions'
+	\ ],
+	\ 'sro' : '.',
+	\ 'kind2scope' : {
+		\ 't' : 'ctype',
+		\ 'n' : 'ntype'
+	\ },
+	\ 'scope2kind' : {
+		\ 'ctype' : 't',
+		\ 'ntype' : 'n'
+	\ },
+	\ 'ctagsbin'  : 'gotags',
+	\ 'ctagsargs' : '-sort -silent'
+\ }
