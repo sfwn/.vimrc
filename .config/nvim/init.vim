@@ -65,8 +65,6 @@ let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 
 let mapleader=';'
 " key map
-nnoremap <leader>j :%!python -m json.tool<CR>
-
 nnoremap <silent><F3> :Deoplete<CR>
 " use tab to forward cycle
 inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
@@ -119,8 +117,12 @@ nnoremap <silent>J :join!<CR>
 nnoremap <leader>m :Man 
 nnoremap <leader>he :vert h 
 " json format
-vnoremap =j :%!python -m json.tool<CR>
-nnoremap =j :%!python -m json.tool<CR>
+nnoremap <leader>j :call AllToJson()<CR>
+vnoremap <leader>j :'<,'>!python -m json.tool<CR>
+function! AllToJson()
+	set filetype=json
+	%!python -m json.tool
+endfunction
 " tab
 nnoremap <C-N> :tabnew<CR>
 nnoremap <Right> gt
