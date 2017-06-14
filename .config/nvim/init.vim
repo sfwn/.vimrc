@@ -17,7 +17,7 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | Plug 'Xuyuanp/nerdtree-
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'Shougo/unite.vim'
 " faster nearly 110~150ms
-Plug 'ianva/vim-youdao-translater', { 'on': ['Ydv', 'Ydc', 'Yde'] }
+"Plug 'ianva/vim-youdao-translater', { 'on': ['Ydv', 'Ydc', 'Yde'] }
 "Plug 'itchyny/lightline.vim', { 'on': 'AnythingULike' } | Plug 'cocopon/lightline-hybrid.vim', { 'on': 'AnythingULike' } " use an unexist vim command so the plugin will not autoload
 Plug 'itchyny/lightline.vim' | Plug 'cocopon/lightline-hybrid.vim' " use an unexist vim command so the plugin will not autoload
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
@@ -63,7 +63,10 @@ let g:lightline_hybrid_style='plain'
 
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 
+let mapleader=';'
 " key map
+nnoremap <leader>j :%!python -m json.tool<CR>
+
 nnoremap <silent><F3> :Deoplete<CR>
 " use tab to forward cycle
 inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
@@ -74,7 +77,6 @@ vnoremap <silent> <C-Y> :<C-u>Ydv<CR>
 nnoremap <silent> <C-Y> :<C-u>Ydc<CR>
 nnoremap <leader>yd :<C-u>Yde<CR>
 "" ==== YouDao dict ====
-let mapleader=';'
 " switch highlight search 
 nnoremap <silent><CR> :set hls!<CR>
 " switch statusline'display
@@ -185,7 +187,7 @@ set background=dark
 "colorscheme flattened_light
 "colorscheme paper
 "colorscheme lucario
-colorscheme deep-space
+"colorscheme deep-space
 "colorscheme dracula
 
 " highlight setting
