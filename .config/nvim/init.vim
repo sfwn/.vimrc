@@ -2,6 +2,7 @@
 call plug#begin('$HOME/.config/nvim/plugged')
 " golang
 Plug 'fatih/vim-go'
+Plug 'kien/ctrlp.vim'
 
 Plug 'sheerun/vim-polyglot'
 Plug 'airblade/vim-gitgutter'
@@ -58,8 +59,18 @@ let g:NERDTreeHighlightCursorline = 1
 let g:NERDTreeWinSize = 45
 
 " lightline
-let g:lightline = { 'colorscheme': 'hybrid' }
-let g:lightline_hybrid_style='plain'
+"let g:lightline = { 'colorscheme': 'hybrid' }
+"let g:lightline_hybrid_style='plain'
+let g:lightline = {
+      \ 'colorscheme': 'Dracula',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
 
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 
@@ -169,7 +180,7 @@ set cursorline
 "set cursorcolumn
 set nu
 set noacd
-set clipboard+=unnamedplus
+"set clipboard+=unnamedplus
 set foldcolumn=0
 " set tabstop
 set autoindent
@@ -190,7 +201,7 @@ set background=dark
 "colorscheme paper
 "colorscheme lucario
 "colorscheme deep-space
-"colorscheme dracula
+colorscheme dracula
 
 " highlight setting
 hi Pmenu ctermfg=black ctermbg=white
@@ -207,3 +218,19 @@ hi WildMenu ctermfg=white ctermbg=brown
 """augroup CLNRSet
 """    autocmd! ColorScheme * hi CursorLineNR cterm=bold
 """augroup END
+
+
+" golang
+set completeopt=longest,menuone
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+" open omni completion menu closing previous if open and opening new menu without changing the text
+inoremap <expr> <C-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
+            \ '<C-x><C-o><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
+" open user completion menu closing previous if open and opening new menu without changing the text
+inoremap <expr> <S-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
+            \ '<C-x><C-u><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
