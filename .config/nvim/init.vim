@@ -1,5 +1,8 @@
 " ==== plug start ====
 call plug#begin('$HOME/.config/nvim/plugged')
+" golang
+Plug 'fatih/vim-go'
+
 Plug 'sheerun/vim-polyglot'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
