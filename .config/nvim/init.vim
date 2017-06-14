@@ -15,7 +15,8 @@ Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'Shougo/unite.vim'
 " faster nearly 110~150ms
 Plug 'ianva/vim-youdao-translater', { 'on': ['Ydv', 'Ydc', 'Yde'] }
-Plug 'itchyny/lightline.vim', { 'on': 'AnythingULike' } | Plug 'cocopon/lightline-hybrid.vim', { 'on': 'AnythingULike' } " use an unexist vim command so the plugin will not autoload
+"Plug 'itchyny/lightline.vim', { 'on': 'AnythingULike' } | Plug 'cocopon/lightline-hybrid.vim', { 'on': 'AnythingULike' } " use an unexist vim command so the plugin will not autoload
+Plug 'itchyny/lightline.vim' | Plug 'cocopon/lightline-hybrid.vim' " use an unexist vim command so the plugin will not autoload
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim'
