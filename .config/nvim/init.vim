@@ -49,13 +49,20 @@ Plug 'ybian/smartim'
 " TOC for markdown
 Plug 'mzlogin/vim-markdown-toc', { 'on': ['GenTocGFM', 'GenTocRedcarpet'] }
 " deoplete
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
-command! Deoplete call plug#load('deoplete.nvim') | call deoplete#enable()
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
+Plug 'Shougo/deoplete.nvim'
+"command! Deoplete call plug#load('deoplete.nvim') | call deoplete#enable()
 call plug#end()
 "" ==== plug end ====
 
+" golang
+let g:go_fmt_command = "goimports"
+
+" deoplete
+let g:deoplete#enable_at_startup = 1
 " tagbar
 let g:tagbar_autofocus = 1
+let g:tagbar_width = 60
 
 " NERDTree
 let g:NERDTreeShowBookmarks = 1
@@ -88,9 +95,22 @@ endfunction
 
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
 let mapleader=';'
+" auto add newline use <Shift><Enter>
+inoremap <C-J> <CR><Esc>O
+
 " key map
-nnoremap <silent><F3> :Deoplete<CR>
+"nnoremap <silent><F3> :Deoplete<CR>
 " use tab to forward cycle
 inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 " use tab to backward cycle
@@ -123,6 +143,10 @@ let g:livedown_port = 1337
 " the system command to launch a browser (ex. on OSX)
 " let g:livedown_browser = "open /Applications/Firefox.app"
 
+nnoremap <leader>gt :GoTest<CR>
+nnoremap <leader>gb :GoBuild<CR>
+nnoremap <leader>gf :GoFmt<CR>
+nnoremap <leader>gi :GoImports<CR>
 nnoremap <silent><F8> :GundoToggle<CR>
 nnoremap <silent><F9> :Startify<CR>
 nnoremap <silent><leader>o :only<CR>
@@ -135,8 +159,8 @@ nnoremap <leader>s :so %<CR>
 nnoremap <leader>v :echo &
 nnoremap <silent><leader>W :w !sudo tee > /dev/null %<CR>
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
-nnoremap <silent><up> ddkP
-nnoremap <silent><down> ddp
+"nnoremap <silent><up> ddkP
+"nnoremap <silent><down> ddp
 nnoremap <silent>- dd
 nnoremap <silent>J :join!<CR>
 nnoremap <leader>m :Man 
@@ -179,7 +203,7 @@ set listchars=tab:¦\ ,eol:¬,trail:⋅,extends:»,precedes:«
 " open file with cursor stay at last closed location
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif   
 " set scrolloff
-set so=10
+"set so=10
 "function! Scrolloffset()
 "    return winheight('%') / 2
 "endfunction
@@ -191,7 +215,7 @@ set nowrap
 "set siso=30
 set cmdheight=1
 "set cursorline
-set cursorcolumn
+"set cursorcolumn
 set nu
 set noacd
 "set clipboard+=unnamedplus
@@ -218,14 +242,16 @@ set background=dark
 "colorscheme dracula
 "colorscheme solarized
 "let g:solarized_termcolors=256
-colorscheme jellybeans
 let g:jellybeans_overrides = {
 \    'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
 \}
 let g:jellybeans_use_term_italics = 1
-let g:jellybeans_overrides = {
-\    'background': { 'guibg': 'none' },
-\}
+"let g:jellybeans_overrides = {
+"\    'background': { 'guibg': '000000' },
+"\}
+colorscheme jellybeans
+
+colorscheme evening
 
 
 " highlight setting
