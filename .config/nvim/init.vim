@@ -2,8 +2,11 @@
 call plug#begin('$HOME/.config/nvim/plugged')
 " golang
 Plug 'fatih/vim-go'
-Plug 'kien/ctrlp.vim'
 Plug 'jstemmer/gotags'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'SirVer/ultisnips'
+Plug 'fatih/molokai'
+Plug 'ctrlpvim/ctrlp.vim'
 
 Plug 'ryanoasis/vim-devicons'
 
@@ -57,12 +60,35 @@ call plug#end()
 
 " golang
 let g:go_fmt_command = "goimports"
+let g:go_metalinter_autosave = 1
+let g:go_metalinter_deadline = "5s"
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_trailing_whitespace_error = 1
+let g:go_highlight_string_spellcheck = 1
+let g:go_highlight_format_strings = 1
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 
+autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+autocmd FileType go nmap <Leader>gi <Plug>(go-info)
+autocmd FileType go nmap <Leader>gs <Plug>(go-sameids-toggle)
+let g:go_auto_type_info = 1
+set updatetime=100
+"let g:go_auto_sameids = 1
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
 " tagbar
 let g:tagbar_autofocus = 1
-let g:tagbar_width = 60
+let g:tagbar_width = 50
 
 " NERDTree
 let g:NERDTreeShowBookmarks = 1
@@ -106,15 +132,9 @@ endfunction
 autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 let mapleader=';'
-" auto add newline use <Shift><Enter>
-inoremap <C-J> <CR><Esc>O
 
 " key map
 "nnoremap <silent><F3> :Deoplete<CR>
-" use tab to forward cycle
-inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-" use tab to backward cycle
-inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 "" ==== YouDao dict ====
 vnoremap <silent> <C-Y> :<C-u>Ydv<CR>
 nnoremap <silent> <C-Y> :<C-u>Ydc<CR>
@@ -143,8 +163,20 @@ let g:livedown_port = 1337
 " the system command to launch a browser (ex. on OSX)
 " let g:livedown_browser = "open /Applications/Firefox.app"
 
-nnoremap <leader>gt :GoTest<CR>
-nnoremap <leader>gb :GoBuild<CR>
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+autocmd FileType go nmap <leader>gb :<C-u>call <SID>build_go_files()<CR>
+autocmd FileType go nmap <Leader>gc <Plug>(go-coverage-toggle)
+autocmd FileType go nmap <leader>gr  <Plug>(go-run)
+
 nnoremap <leader>gf :GoFmt<CR>
 nnoremap <leader>gi :GoImports<CR>
 nnoremap <silent><F8> :GundoToggle<CR>
@@ -190,6 +222,8 @@ if &filetype==""
 endif
 
 " system config
+set autowrite
+let g:go_list_type = "quickfix"
 set ruler " show current line info in right bottom
 set binary
 set noeol
@@ -216,7 +250,7 @@ set nowrap
 set cmdheight=1
 "set cursorline
 "set cursorcolumn
-set nu
+set nonu
 set noacd
 "set clipboard+=unnamedplus
 set foldcolumn=0
@@ -253,6 +287,10 @@ colorscheme jellybeans
 
 colorscheme evening
 
+let g:rehash256 = 1
+let g:molokai_original = 1
+colorscheme molokai
+
 
 " highlight setting
 hi Pmenu ctermfg=black ctermbg=white
@@ -285,6 +323,10 @@ inoremap <expr> <C-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Es
 " open user completion menu closing previous if open and opening new menu without changing the text
 inoremap <expr> <S-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
             \ '<C-x><C-u><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
+" use tab to forward cycle
+inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" use tab to backward cycle
+inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 
 let g:tagbar_type_go = {
 	\ 'ctagstype' : 'go',
@@ -313,3 +355,6 @@ let g:tagbar_type_go = {
 	\ 'ctagsbin'  : 'gotags',
 	\ 'ctagsargs' : '-sort -silent'
 \ }
+
+nnoremap <C-n> :cnext<CR>
+nnoremap <C-p> :cprevious<CR>
