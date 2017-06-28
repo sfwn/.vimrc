@@ -84,6 +84,8 @@ let g:go_auto_type_info = 1
 set updatetime=100
 "let g:go_auto_sameids = 1
 
+set colorcolumn=80
+
 " deoplete
 let g:deoplete#enable_at_startup = 1
 " tagbar
@@ -285,11 +287,12 @@ let g:jellybeans_use_term_italics = 1
 "\}
 colorscheme jellybeans
 
-colorscheme evening
-
 let g:rehash256 = 1
 let g:molokai_original = 1
 colorscheme molokai
+
+colorscheme deep-space
+colorscheme evening
 
 
 " highlight setting
